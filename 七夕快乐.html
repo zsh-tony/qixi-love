@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七夕快乐 - 给我最爱的彤彤</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+        
+        /* 星空背景 */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* 标题动画 */
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffa8a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        @keyframes titleGlow {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.05) rotate(1deg); }
+        }
+        
+        /* 彤字特效 */
+        .name-highlight {
+            display: inline-block;
+            font-size: 4rem;
+            color: #ff4757;
+            text-shadow: 
+                0 0 10px #ff4757,
+                0 0 20px #ff4757,
+                0 0 30px #ff4757,
+                0 0 40px #ff4757;
+            animation: nameFloat 4s ease-in-out infinite;
+            margin: 20px 0;
+        }
+        
+        @keyframes nameFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(2deg); }
+            50% { transform: translateY(-5px) rotate(-1deg); }
+            75% { transform: translateY(-15px) rotate(1deg); }
+        }
+        
+        /* 爱心雨 */
+        .heart {
+            position: absolute;
+            color: #ff6b6b;
+            font-size: 20px;
+            animation: heartFall 3s linear infinite;
+            z-index: 5;
+        }
+        
+        @keyframes heartFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 花瓣飘落 */
+        .petal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #ffb3ba, #ff6b6b);
+            border-radius: 50% 0 50% 0;
+            animation: petalFall 4s linear infinite;
+            z-index: 3;
+        }
+        
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 诗句动画 */
+        .poem {
+            font-size: 1.2rem;
+            color: #fff;
+            line-height: 2;
+            margin: 30px 0;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out 1s forwards;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 月亮 */
+        .moon {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f5f5dc, #fffacd);
+            box-shadow: 
+                0 0 20px rgba(255, 250, 205, 0.8),
+                inset -10px -10px 0 rgba(0,0,0,0.1);
+            animation: moonGlow 4s ease-in-out infinite alternate;
+            z-index: 2;
+        }
+        
+        @keyframes moonGlow {
+            0% { box-shadow: 0 0 20px rgba(255, 250, 205, 0.8), inset -10px -10px 0 rgba(0,0,0,0.1); }
+            100% { box-shadow: 0 0 40px rgba(255, 250, 205, 1), inset -10px -10px 0 rgba(0,0,0,0.05); }
+        }
+        
+        /* 喜鹊 */
+        .magpie {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 30px;
+            animation: magpieFly 6s ease-in-out infinite;
+            z-index: 8;
+        }
+        
+        @keyframes magpieFly {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            25% { transform: translateX(50px) translateY(-20px) rotate(10deg); }
+            50% { transform: translateX(100px) translateY(-10px) rotate(-5deg); }
+            75% { transform: translateX(80px) translateY(-30px) rotate(5deg); }
+        }
+        
+        /* 牛郎织女 */
+        .lovers {
+            font-size: 2rem;
+            margin: 20px 0;
+            animation: loversUnite 5s ease-in-out infinite;
+        }
+        
+        @keyframes loversUnite {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* 按钮 */
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            animation: buttonPulse 2s infinite;
+        }
+        
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+        
+        /* 烟花效果 */
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: fireworkExplode 2s ease-out forwards;
+        }
+        
+        @keyframes fireworkExplode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(20);
+                opacity: 0;
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; }
+            .name-highlight { font-size: 3rem; }
+            .poem { font-size: 1rem; }
+            .moon { width: 60px; height: 60px; top: 5%; right: 10%; }
+            .magpie { font-size: 20px; }
+        }
+        
+        /* 隐藏元素，用于动画触发 */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- 月亮 -->
+    <div class="moon"></div>
+    
+    <!-- 喜鹊 -->
+    <div class="magpie">🐦</div>
+    
+    <!-- 主容器 -->
+    <div class="container">
+        <h1 class="title">七夕快乐</h1>
+        
+        <div class="name-highlight">彤</div>
+        
+        <div class="poem hidden" id="poem1">
+            银河迢迢彤云间，<br>
+            牛郎织女会今宵。
+        </div>
+        
+        <div class="lovers hidden" id="lovers">👫</div>
+        
+        <div class="poem hidden" id="poem2">
+            愿得一人心，白首不相离。<br>
+            天上星河转，人间彤心永不变。
+        </div>
+        
+        <button class="btn hidden" id="surpriseBtn" onclick="createFireworks()">
+            点击送你一个惊喜 ✨
+        </button>
+    </div>
+
+    <script>
+        // 创建星空
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // 创建爱心雨
+        function createHeartRain() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 300);
+            }
+        }
+        
+        // 创建花瓣飘落
+        function createPetalFall() {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    petal.style.left = Math.random() * 100 + '%';
+                    petal.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                    petal.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(petal);
+                    
+                    setTimeout(() => {
+                        petal.remove();
+                    }, 7000);
+                }, i * 200);
+            }
+        }
+        
+        // 创建烟花效果
+        function createFireworks() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a29bfe'];
+            
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    for (let j = 0; j < 12; j++) {
+                        const firework = document.createElement('div');
+                        firework.className = 'firework';
+                        firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        firework.style.left = (Math.random() * 80 + 10) + '%';
+                        firework.style.top = (Math.random() * 60 + 20) + '%';
+                        firework.style.animationDelay = Math.random() * 0.5 + 's';
+                        document.body.appendChild(firework);
+                        
+                        setTimeout(() => {
+                            firework.remove();
+                        }, 2500);
+                    }
+                }, i * 300);
+            }
+            
+            // 播放庆祝音效（如果需要的话）
+            playSound();
+        }
+        
+        // 模拟音效（实际使用时可以加载真实音频文件）
+        function playSound() {
+            // 这里可以添加音频播放代码
+            console.log('🎵 播放庆祝音效');
+        }
+        
+        // 渐显动画
+        function showElements() {
+            const elements = [
+                { id: 'poem1', delay: 1000 },
+                { id: 'lovers', delay: 2000 },
+                { id: 'poem2', delay: 3000 },
+                { id: 'surpriseBtn', delay: 4000 }
+            ];
+            
+            elements.forEach(element => {
+                setTimeout(() => {
+                    const el = document.getElementById(element.id);
+                    el.classList.remove('hidden');
+                    el.classList.add('visible');
+                }, element.delay);
+            });
+        }
+        
+        // 持续的动画效果
+        function continuousAnimations() {
+            // 每隔5秒创建爱心雨
+            setInterval(createHeartRain, 5000);
+            
+            // 每隔7秒创建花瓣飘落
+            setInterval(createPetalFall, 7000);
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            showElements();
+            continuousAnimations();
+            
+            // 立即开始第一波效果
+            setTimeout(createHeartRain, 1000);
+            setTimeout(createPetalFall, 2000);
+        });
+        
+        // 点击屏幕创建特效
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'BUTTON') {
+                // 在点击位置创建小烟花
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.background = '#ff6b6b';
+                firework.style.left = e.clientX + 'px';
+                firework.style.top = e.clientY + 'px';
+                firework.style.position = 'fixed';
+                document.body.appendChild(firework);
+                
+                setTimeout(() => {
+                    firework.remove();
+                }, 2000);
+            }
+        });
+        
+        // 触摸设备支持
+        document.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const clickEvent = new MouseEvent('click', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            document.dispatchEvent(clickEvent);
+        });
+    </script>
+</body>
+</html>
